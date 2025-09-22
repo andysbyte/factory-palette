@@ -6,28 +6,15 @@ local inventory = require("scripts.sources.inventory")
 local logistic_request_gui = require("scripts.gui.logistic-request")
 
 local function tooltip(result)
-  return {
+  local built_tooltip = {
     "",
-    { "gui.fpal-click-tooltip" },
-    " ",
-    { "gui.fpal-set-in-cursor" },
-    "\n",
-    { "gui.fpal-shift-click-tooltip" },
-    " ",
-    { "gui.fpal-set-logistic-request" },
-    "\n",
-    { "gui.fpal-control-click-tooltip" },
-    " ",
-    { "factory-palette.source.items.craft" },
-    "\n",
-    { "gui.fpal-control-shift-click-tooltip" },
-    " ",
-    { "factory-palette.source.items.craft-many" },
-    "\n",
-    { "gui.fpal-alt-click-tooltip" },
-    " ",
-    { "factory-palette.source.items.open-in-factoriopedia" },
+    { "", { "gui.fpal-click-tooltip" }, "  ", { "gui.fpal-set-in-cursor" }, "\n" },
+    { "", { "gui.fpal-shift-click-tooltip" }, "  ", { "gui.fpal-set-logistic-request" }, "\n" },
+    { "", { "gui.fpal-control-click-tooltip" }, "  ", { "factory-palette.source.items.craft" }, "\n" },
+    { "", { "gui.fpal-control-shift-click-tooltip" }, "  ", { "factory-palette.source.items.craft-many" }, "\n" },
+    { "", { "gui.fpal-alt-click-tooltip" }, "  ", { "factory-palette.source.items.open-in-factoriopedia" } }
   }
+  return built_tooltip
 end
 
 local function search(args)
