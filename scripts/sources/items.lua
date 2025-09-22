@@ -8,12 +8,16 @@ local logistic_request_gui = require("scripts.gui.logistic-request")
 local function tooltip(result)
   local built_tooltip = {
     "",
-    { "", { "gui.fpal-click-tooltip" }, "  ", { "gui.fpal-set-in-cursor" }, "\n" },
-    { "", { "gui.fpal-shift-click-tooltip" }, "  ", { "gui.fpal-set-logistic-request" }, "\n" },
-    { "", { "gui.fpal-control-click-tooltip" }, "  ", { "factory-palette.source.items.craft" }, "\n" },
-    { "", { "gui.fpal-control-shift-click-tooltip" }, "  ", { "factory-palette.source.items.craft-many" }, "\n" },
-    { "", { "gui.fpal-alt-click-tooltip" }, "  ", { "factory-palette.source.items.open-in-factoriopedia" } }
+    { "", { "gui.fpal-click-tooltip" }, " ", { "gui.fpal-set-in-cursor" }, "\n" },
+    { "", { "gui.fpal-shift-click-tooltip" }, " ", { "gui.fpal-set-logistic-request" }, "\n" },
+    { "", { "gui.fpal-control-click-tooltip" }, " ", { "factory-palette.source.items.craft" }, "\n" },
+    { "", { "gui.fpal-control-shift-click-tooltip" }, " ", { "factory-palette.source.items.craft-many" }, "\n" },
+    { "", { "gui.fpal-alt-click-tooltip" }, " ", { "factory-palette.source.items.open-in-factoriopedia" } }
   }
+  if remote.interfaces["factory-search"] then
+    table.insert(built_tooltip, { "", 
+      "\n", { "gui.fpal-alt-shift-click-tooltip" }, " ", { "factory-palette.source.items.open-in-factory-search" } })
+  end
   return built_tooltip
 end
 
