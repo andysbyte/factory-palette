@@ -11,12 +11,19 @@ local function tooltip(result)
     { "", { "gui.fpal-click-tooltip" }, " ", { "gui.fpal-set-in-cursor" }, "\n" },
     { "", { "gui.fpal-shift-click-tooltip" }, " ", { "gui.fpal-set-logistic-request" }, "\n" },
     { "", { "gui.fpal-control-click-tooltip" }, " ", { "factory-palette.source.items.craft" }, "\n" },
-    { "", { "gui.fpal-control-shift-click-tooltip" }, " ", { "factory-palette.source.items.craft-many" }, "\n" },
-    { "", { "gui.fpal-alt-click-tooltip" }, " ", { "factory-palette.source.items.open-in-factoriopedia" } }
+    { "", { "gui.fpal-control-shift-click-tooltip" }, "  ", { "factory-palette.source.items.craft-many" } }
   }
+  if remote.interfaces["RecipeBook"] then
+    table.insert(built_tooltip, 
+    { "", "\n", { "gui.fpal-alt-click-tooltip" }, " ", { "factory-palette.source.items.open-in-recipe-book" } })
+  else
+    table.insert(built_tooltip, 
+    { "", "\n", { "gui.fpal-alt-click-tooltip" }, " ", { "factory-palette.source.items.open-in-factoriopedia" } })
+  end
+
   if remote.interfaces["factory-search"] then
-    table.insert(built_tooltip, { "", 
-      "\n", { "gui.fpal-alt-shift-click-tooltip" }, " ", { "factory-palette.source.items.open-in-factory-search" } })
+        table.insert(built_tooltip,
+    { "", "\n", { "gui.fpal-alt-shift-click-tooltip" }, " ", { "factory-palette.source.items.open-in-factory-search" } })
   end
   return built_tooltip
 end
@@ -247,10 +254,14 @@ local function open_in_factoriopedia(player, result)
     return
   end
   local recipe = player.force.recipes[result.name]
-  if not recipe then
-    return false
+    if not recipe then
+        return false
+    end
+  if remote.interfaces["RecipeBook"] and remote.call("RecipeBook", "version") == 5 then
+    remote.call("RecipeBook", "open_page", player.index, recipe.prototype)
+  else
+    player.open_factoriopedia_gui(recipe.prototype)
   end
-  player.open_factoriopedia_gui(recipe.prototype)
   return true
 end
 
